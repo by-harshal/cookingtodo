@@ -29,8 +29,14 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="diet">Dietary Preferences</label>
-                        <input type="text" id="diet" placeholder="e.g., Vegetarian, High Protein" required>
+                        <label>Dietary Preferences</label>
+                        <div class="diet-pills" id="diet-pills">
+                            <button type="button" class="diet-pill active" data-value="Veg">Veg</button>
+                            <button type="button" class="diet-pill" data-value="Vegan">Vegan</button>
+                            <button type="button" class="diet-pill" data-value="Eggetarian">Eggetarian</button>
+                            <button type="button" class="diet-pill" data-value="Non-veg">Non-veg</button>
+                        </div>
+                        <input type="hidden" id="diet" value="Veg" required>
                     </div>
                 </div>
 

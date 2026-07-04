@@ -8,6 +8,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results-container');
     const resetBtn = document.getElementById('reset-btn');
 
+    // Diet Pill Logic & Color Theming
+    const dietPills = document.querySelectorAll('.diet-pill');
+    
+    function updateDietSelectionAndColor() {
+        let selectedDiets = [];
+        dietPills.forEach(pill => {
+            if (pill.classList.contains('active')) {
+                selectedDiets.push(pill.dataset.value);
+            }
+        });
+        
+        // Ensure at least one is selected; if not, fallback to Veg
+        if (selectedDiets.length === 0) {
+            const vegPill = document.querySelector('.diet-pill[data-value="Veg"]');
+            if(vegPill) vegPill.classList.add('active');
+            selectedDiets = ['Veg'];
+        }
+
+        if(dietInput) dietInput.value = selectedDiets.join(', ');
+
+        // Color Priority Logic
+        const root = document.documentElement;
+        if (selectedDiets.includes('Non-veg')) {
+            root.style.setProperty('--accent-color', '#ef4444'); // Red
+            root.style.setProperty('--accent-hover', '#dc2626');
+        } else if (selectedDiets.includes('Eggetarian')) {
+            root.style.setProperty('--accent-color', '#a16207'); // Brown
+            root.style.setProperty('--accent-hover', '#854d0e');
+        } else if (selectedDiets.includes('Veg')) {
+            root.style.setProperty('--accent-color', '#10b981'); // Green
+            root.style.setProperty('--accent-hover', '#059669');
+        } else if (selectedDiets.includes('Vegan')) {
+            root.style.setProperty('--accent-color', '#84cc16'); // Lime Green
+            root.style.setProperty('--accent-hover', '#65a30d');
+        }
+    }
+
+    if(dietPills.length > 0) {
+        dietPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                pill.classList.toggle('active');
+                updateDietSelectionAndColor();
+            });
+        });
+        // Initialize color on load
+        updateDietSelectionAndColor();
+    }
 
     resetBtn.addEventListener('click', () => {
         resultsContainer.classList.add('hidden');
