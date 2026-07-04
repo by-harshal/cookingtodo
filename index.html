@@ -41,8 +41,47 @@
                 <button type="submit" id="generate-btn" class="primary-btn">Generate Meal Plan</button>
             </form>
 
-            <!-- This section will be populated in Slice 3 -->
-            <div id="results-container" class="results-container hidden"></div>
+            <!-- Results Section (Populated in Slice 3) -->
+            <div id="results-container" class="results-container hidden">
+                <div class="results-header">
+                    <h2>Your Meal Plan</h2>
+                    <button type="button" id="reset-btn" class="secondary-btn">Start Over</button>
+                </div>
+                
+                <div class="budget-status" id="budget-status">
+                    <!-- populated by js -->
+                </div>
+
+                <div class="meals-grid">
+                    <div class="meal-card">
+                        <h3>Breakfast</h3>
+                        <p id="meal-breakfast">Loading...</p>
+                    </div>
+                    <div class="meal-card">
+                        <h3>Lunch</h3>
+                        <p id="meal-lunch">Loading...</p>
+                    </div>
+                    <div class="meal-card">
+                        <h3>Dinner</h3>
+                        <p id="meal-dinner">Loading...</p>
+                    </div>
+                </div>
+
+                <div class="lists-container">
+                    <div class="grocery-list-card">
+                        <h3>Grocery List</h3>
+                        <ul id="grocery-list" class="styled-list">
+                            <!-- populated by js -->
+                        </ul>
+                    </div>
+                    <div class="substitutions-card">
+                        <h3>Smart Substitutions</h3>
+                        <ul id="substitutions-list" class="styled-list">
+                            <!-- populated by js -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <script src="app.js"></script>

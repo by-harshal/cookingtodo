@@ -5,12 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const budgetInput = document.getElementById('budget');
     const dietInput = document.getElementById('diet');
     const generateBtn = document.getElementById('generate-btn');
+    const resultsContainer = document.getElementById('results-container');
+    const resetBtn = document.getElementById('reset-btn');
 
     // Load saved API key
     const savedKey = localStorage.getItem('gemini_api_key');
     if (savedKey) {
         apiKeyInput.value = savedKey;
     }
+
+    resetBtn.addEventListener('click', () => {
+        resultsContainer.classList.add('hidden');
+        form.classList.remove('hidden');
+    });
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -26,8 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save API key
         localStorage.setItem('gemini_api_key', apiKey);
 
-        console.log('User Input Captured:', userInput);
-        
         // 2. Update UI state
         const originalBtnText = generateBtn.textContent;
         generateBtn.textContent = 'Planning your meals...';
@@ -75,8 +80,8 @@ Respond ONLY in valid JSON format, exactly matching this structure, with no mark
             const cleanJson = aiText.replace(/```json/g, '').replace(/```/g, '').trim();
             const mealPlan = JSON.parse(cleanJson);
             
-            console.log('AI Response parsed:', mealPlan);
-            alert('Slice 2 complete! AI response received and parsed successfully. Check console.');
+            // 4. Render UI
+            renderResults(mealPlan);
             
         } catch (error) {
             console.error('Error generating plan:', error);
@@ -86,4 +91,54 @@ Respond ONLY in valid JSON format, exactly matching this structure, with no mark
             generateBtn.disabled = false;
         }
     });
+
+    function renderResults(plan) {
+        // Hide form, show results
+        form.classList.add('hidden');
+        resultsContainer.classList.remove('hidden');
+
+        // Render Meals
+        document.getElementById('meal-breakfast').textContent = plan.meals.breakfast || 'N/A';
+        document.getElementById('meal-lunch').textContent = plan.meals.lunch || 'N/A';
+        document.getElementById('meal-dinner').textContent = plan.meals.dinner || 'N/A';
+
+        // Render Budget Status
+        document.getElementById('budget-status').textContent = plan.budgetFeasibility || 'Budget analysis unavailable.';
+
+        // Render Grocery List
+        const groceryListEl = document.getElementById('grocery-list');
+        groceryListEl.innerHTML = '';
+        if (plan.groceryList && plan.groceryList.length > 0) {
+            plan.groceryList.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="list-item-text">
+                        <input type="checkbox" id="item-${index}">
+                        <label for="item-${index}">${item.item}</label>
+                    </div>
+                    <span class="price-tag">$${item.estimatedPrice.toFixed(2)}</span>
+                `;
+                groceryListEl.appendChild(li);
+            });
+        } else {
+            groceryListEl.innerHTML = '<li>No items needed.</li>';
+        }
+
+        // Render Substitutions
+        const subsListEl = document.getElementById('substitutions-list');
+        subsListEl.innerHTML = '';
+        if (plan.substitutions && plan.substitutions.length > 0) {
+            plan.substitutions.forEach(sub => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="list-item-text">
+                        <span><strong>${sub.original}</strong> &rarr; ${sub.substitute}</span>
+                    </div>
+                `;
+                subsListEl.appendChild(li);
+            });
+        } else {
+            subsListEl.innerHTML = '<li>No substitutions needed.</li>';
+        }
+    }
 });
