@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('setup-form');
-    const apiKeyInput = document.getElementById('api-key');
+
     const dayContextInput = document.getElementById('day-context');
     const budgetInput = document.getElementById('budget');
     const dietInput = document.getElementById('diet');
@@ -8,11 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results-container');
     const resetBtn = document.getElementById('reset-btn');
 
-    // Load saved API key
-    const savedKey = localStorage.getItem('gemini_api_key');
-    if (savedKey) {
-        apiKeyInput.value = savedKey;
-    }
 
     resetBtn.addEventListener('click', () => {
         resultsContainer.classList.add('hidden');
@@ -23,15 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         // 1. Capture Data
-        const apiKey = apiKeyInput.value.trim();
+        const apiKey = 'AIzaSyCOX3dHyGsSkzBRcaQwEsbxi1AVPkMe-w8';
         const userInput = {
             dayContext: dayContextInput.value.trim(),
             budget: parseFloat(budgetInput.value),
             diet: dietInput.value.trim()
         };
-
-        // Save API key
-        localStorage.setItem('gemini_api_key', apiKey);
 
         // 2. Update UI state
         const originalBtnText = generateBtn.textContent;
