@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 3. AI Integration
         try {
-            const prompt = `You are a meal planning assistant. Create a daily meal plan based on the following:
+            const prompt = `You are an expert meal planning assistant specializing in Indian cuisine and the Indian context. Create a daily meal plan based on the following:
 Day Context: ${userInput.dayContext}
-Budget: $${userInput.budget}
+Budget: ₹${userInput.budget} INR
 Dietary Preferences: ${userInput.diet}
 
-Respond ONLY in valid JSON format, exactly matching this structure, with no markdown wrappers or backticks:
+Respond ONLY in valid JSON format, exactly matching this structure, with no markdown wrappers or backticks. Use Indian recipes, local Indian ingredients, and realistic prices in INR:
 {
   "meals": {
     "breakfast": "name of meal",
@@ -108,7 +108,7 @@ Respond ONLY in valid JSON format, exactly matching this structure, with no mark
                         <input type="checkbox" id="item-${index}">
                         <label for="item-${index}">${item.item}</label>
                     </div>
-                    <span class="price-tag">$${item.estimatedPrice.toFixed(2)}</span>
+                    <span class="price-tag">₹${item.estimatedPrice.toFixed(2)}</span>
                 `;
                 groceryListEl.appendChild(li);
             });
