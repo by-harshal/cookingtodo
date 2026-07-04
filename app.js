@@ -66,10 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 1. Capture Data
         const apiKey = 'AIzaSyCOX3dHyGsSkzBRcaQwEsbxi1AVPkMe-w8';
+        const specificDiet = document.getElementById('diet-specifics').value.trim();
+        const combinedDiet = specificDiet ? `${dietInput.value.trim()} - Specifically: ${specificDiet}` : dietInput.value.trim();
+        
         const userInput = {
             dayContext: dayContextInput.value.trim(),
             budget: parseFloat(budgetInput.value),
-            diet: dietInput.value.trim()
+            diet: combinedDiet
         };
 
         // 2. Update UI state
