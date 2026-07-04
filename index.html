@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cooking To-Do</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>What's on your plate today?</h1>
+            <p>Tell us your schedule, budget, and diet. We'll handle the rest.</p>
+        </header>
+
+        <main>
+            <form id="setup-form" class="setup-form">
+                <div class="form-group">
+                    <label for="day-context">How is your day looking?</label>
+                    <textarea id="day-context" placeholder="e.g., Busy until 6 PM, need something quick for dinner, going to the gym at 7 AM..." required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="budget">Daily Budget ($)</label>
+                        <input type="number" id="budget" placeholder="e.g., 30" required min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="diet">Dietary Preferences</label>
+                        <input type="text" id="diet" placeholder="e.g., Vegetarian, High Protein" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="generate-btn" class="primary-btn">Generate Meal Plan</button>
+            </form>
+
+            <!-- This section will be populated in Slice 3 -->
+            <div id="results-container" class="results-container hidden"></div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
