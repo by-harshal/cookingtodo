@@ -77,7 +77,7 @@ Respond ONLY in valid JSON format, exactly matching this structure, with no mark
             
         } catch (error) {
             console.error('Error generating plan:', error);
-            alert('Failed to generate meal plan. Check console for details or verify your API key.');
+            alert('Error details: ' + error.message);
         } finally {
             generateBtn.textContent = originalBtnText;
             generateBtn.disabled = false;
